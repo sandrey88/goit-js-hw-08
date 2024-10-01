@@ -90,9 +90,21 @@ function onImageClick(event) {
   if (event.target.nodeName !== 'IMG') {
     return;
   }
+
   const originalImage = event.target.dataset.source;
+
+  const imageDescription = images.find(
+    image => image.original === originalImage
+  ).description;
+
   const instance = basicLightbox.create(
-    `<img src="${originalImage}" width="1112" height="640">`
+    `<div class="modal">
+    <div class="modal-content">
+      <img src="${originalImage}" alt="${imageDescription}">
+      <p class="description">${imageDescription}</p>
+    </div>
+  </div>
+  `
   );
 
   instance.show();
