@@ -67,6 +67,7 @@ const images = [
 const gallery = document.querySelector('.gallery');
 let markup = '';
 
+// Розмітку галереї
 images.forEach(image => {
   const { preview, original, description } = image;
 
@@ -84,30 +85,37 @@ images.forEach(image => {
 
 gallery.insertAdjacentHTML('afterbegin', markup);
 
+// Функція для обробки кліка
 function onImageClick(event) {
   event.preventDefault();
 
+  // Перевірка, чи клік був по зображенню
   if (event.target.nodeName !== 'IMG') {
     return;
   }
 
+  // Отримуємо посилання на велике зображення
   const originalImage = event.target.dataset.source;
 
+  // Опис зображення
   const imageDescription = images.find(
     image => image.original === originalImage
   ).description;
 
+  // Модальне вікно з зображенням
   const instance = basicLightbox.create(
     `<div class="modal">
-    <div class="modal-content">
-      <img src="${originalImage}" alt="${imageDescription}">
-      <p class="description">${imageDescription}</p>
-    </div>
-  </div>
-  `
+      <div class="modal-content">
+        <img src="${originalImage}" alt="${imageDescription}">
+        <p class="description">${imageDescription}</p>
+      </div>
+    </div>`
   );
 
   instance.show();
+
+  console.log(originalImage);
 }
 
+// Сухач подій ul.gallery
 gallery.addEventListener('click', onImageClick);
